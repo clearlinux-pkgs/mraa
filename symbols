@@ -16,6 +16,7 @@ libmraa.so.1:mraa_file_contains_both
 libmraa.so.1:mraa_file_exist
 libmraa.so.1:mraa_file_unglob
 libmraa.so.1:mraa_find_i2c_bus
+libmraa.so.1:mraa_find_i2c_bus_pci
 libmraa.so.1:mraa_get_default_i2c_bus
 libmraa.so.1:mraa_get_i2c_bus_count
 libmraa.so.1:mraa_get_i2c_bus_id
