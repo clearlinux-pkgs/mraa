@@ -4,7 +4,7 @@
 #
 Name     : mraa
 Version  : 1.5.1
-Release  : 4
+Release  : 5
 URL      : https://github.com/intel-iot-devkit/mraa/archive/v1.5.1.tar.gz
 Source0  : https://github.com/intel-iot-devkit/mraa/archive/v1.5.1.tar.gz
 Summary  : No detailed summary available
@@ -14,7 +14,6 @@ Requires: mraa-bin
 Requires: mraa-lib
 Requires: mraa-data
 BuildRequires : cmake
-BuildRequires : cmake-dev
 BuildRequires : json-c-dev
 BuildRequires : python3
 
@@ -67,21 +66,26 @@ lib components for the mraa package.
 %setup -q -n mraa-1.5.1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
+export SOURCE_DATE_EPOCH=1525380342
 mkdir clr-build
 pushd clr-build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DCMAKE_RANLIB=/usr/bin/gcc-ranlib
-make VERBOSE=1  %{?_smp_mflags}
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib
+make  %{?_smp_mflags}
 popd
 
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 pushd clr-build ; make test ||: ; popd
 
 %install
+export SOURCE_DATE_EPOCH=1525380342
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -153,42 +157,30 @@ popd
 /usr/share/mraa/examples/mraa-gpio.c
 /usr/share/mraa/examples/mraa-i2c.c
 /usr/share/mraa/examples/platform/turbotjson.json
+/usr/share/mraa/examples/python/__pycache__/aio.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/blink-io8.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/bmp85.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/cycle-pwm3.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/firmata.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/hello_gpio.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/hello_isr.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/initio.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/rgblcd.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/spi.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/uart_receiver.cpython-36.pyc
+/usr/share/mraa/examples/python/__pycache__/uart_sender.cpython-36.pyc
 /usr/share/mraa/examples/python/aio.py
-/usr/share/mraa/examples/python/aio.pyc
-/usr/share/mraa/examples/python/aio.pyo
 /usr/share/mraa/examples/python/blink-io8.py
-/usr/share/mraa/examples/python/blink-io8.pyc
-/usr/share/mraa/examples/python/blink-io8.pyo
 /usr/share/mraa/examples/python/bmp85.py
-/usr/share/mraa/examples/python/bmp85.pyc
-/usr/share/mraa/examples/python/bmp85.pyo
 /usr/share/mraa/examples/python/cycle-pwm3.py
-/usr/share/mraa/examples/python/cycle-pwm3.pyc
-/usr/share/mraa/examples/python/cycle-pwm3.pyo
 /usr/share/mraa/examples/python/firmata.py
-/usr/share/mraa/examples/python/firmata.pyc
-/usr/share/mraa/examples/python/firmata.pyo
 /usr/share/mraa/examples/python/hello_gpio.py
-/usr/share/mraa/examples/python/hello_gpio.pyc
-/usr/share/mraa/examples/python/hello_gpio.pyo
 /usr/share/mraa/examples/python/hello_isr.py
-/usr/share/mraa/examples/python/hello_isr.pyc
-/usr/share/mraa/examples/python/hello_isr.pyo
 /usr/share/mraa/examples/python/initio.py
-/usr/share/mraa/examples/python/initio.pyc
-/usr/share/mraa/examples/python/initio.pyo
 /usr/share/mraa/examples/python/rgblcd.py
-/usr/share/mraa/examples/python/rgblcd.pyc
-/usr/share/mraa/examples/python/rgblcd.pyo
 /usr/share/mraa/examples/python/spi.py
-/usr/share/mraa/examples/python/spi.pyc
-/usr/share/mraa/examples/python/spi.pyo
 /usr/share/mraa/examples/python/uart_receiver.py
-/usr/share/mraa/examples/python/uart_receiver.pyc
-/usr/share/mraa/examples/python/uart_receiver.pyo
 /usr/share/mraa/examples/python/uart_sender.py
-/usr/share/mraa/examples/python/uart_sender.pyc
-/usr/share/mraa/examples/python/uart_sender.pyo
 /usr/share/mraa/examples/samples.mapping.txt
 /usr/share/mraa/examples/spi_max7219.c
 /usr/share/mraa/examples/spi_mcp4261.c
