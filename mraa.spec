@@ -4,7 +4,7 @@
 #
 Name     : mraa
 Version  : 1.5.1
-Release  : 6
+Release  : 7
 URL      : https://github.com/intel-iot-devkit/mraa/archive/v1.5.1.tar.gz
 Source0  : https://github.com/intel-iot-devkit/mraa/archive/v1.5.1.tar.gz
 Summary  : No detailed summary available
